@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 
-const Login = ({ navigation }) => {
+const SignUp = ({ navigation }) => {
+  const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   async function handleSubmit() {
-    console.log({ email, password });
+    console.log({ nombre, email, password });
   }
 
   return (
@@ -20,19 +21,27 @@ const Login = ({ navigation }) => {
       <View style={styles.formulario}>
         <View style={{ marginBottom: 20 }}>
           <Text variant='headlineSmall' style={{ fontWeight: 'bold' }}>
-            Inicio de Sesión
+            Registrarse
           </Text>
           <Text variant='bodyMedium'>
-            Ingresa tus credenciales para BienesRaices
+            Completa los siguientes campos para crear tu cuenta en BienesRaices
           </Text>
         </View>
 
         <TextInput
           mode="outlined"
+          label="Nombre"
+          placeholder="Jane Doe"
+          style={{ marginBottom: 5 }}
+          value={nombre}
+          onChangeText={setNombre}
+        />
+        <TextInput
+          mode="outlined"
           label="Correo electronico"
           placeholder="correo@example.com"
-          style={{ marginBottom: 15 }}
           keyboardType='email-address'
+          style={{ marginBottom: 5 }}
           value={email}
           onChangeText={setEmail}
         />
@@ -47,9 +56,9 @@ const Login = ({ navigation }) => {
 
         <Button
           labelStyle={{ fontSize: 14, marginVertical: 10 }}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigation.navigate('Login')}
         >
-          ¿No tienes una cuenta? Crea una
+          ¿Ya tienes una cuenta? Inicia Sesión
         </Button>
 
         <Button
@@ -57,7 +66,7 @@ const Login = ({ navigation }) => {
           style={{ marginVertical: 15 }}
           onPress={handleSubmit}
         >
-          Iniciar Sesión
+          Crear Cuenta
         </Button>
       </View>
     </View>
@@ -76,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default SignUp;

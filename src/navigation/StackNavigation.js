@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Screens
 import Login from '../screens/auth/Login';
 import BottomTabNavigation from './BottomTabNavigation';
+import SignUp from '../screens/auth/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,14 @@ const StackNavigation = () => {
         component={Login}
         options={{
           headerTitle: 'Inicio de Sesión',
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
+        name='SignUp'
+        component={SignUp}
+        options={{
+          headerTitle: 'Crear Cuenta',
           headerTitleAlign: 'center',
         }}
       />
