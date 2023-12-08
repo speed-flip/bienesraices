@@ -21,7 +21,7 @@ const BottomTabNavigation = () => {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Favorites') {
             iconName = focused ? 'heart' : 'heart-outline';
-          } else if (route.name == 'Admin') {
+          } else if (route.name == 'AdminS') {
             iconName = focused ? 'settings' : 'settings-outline';
           }
 
@@ -40,7 +40,7 @@ const BottomTabNavigation = () => {
 
       {isAdmin ? (
         <Tab.Screen
-          name='Admin'
+          name='AdminS'
           component={Home}
           options={{
             headerTitle: 'Crear Inmueble',

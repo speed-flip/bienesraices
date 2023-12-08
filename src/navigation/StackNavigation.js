@@ -12,6 +12,10 @@ const StackNavigation = () => {
       <Stack.Screen
         name='Login'
         component={Login}
+        options={{
+          headerTitle: 'Inicio de Sesión',
+          headerTitleAlign: 'center',
+        }}
       />
 
       <Stack.Screen
