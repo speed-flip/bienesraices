@@ -3,12 +3,48 @@ import { useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 
+import CustomAlert from '../../components/CustomAlert';
+import AdminClient from '../../config/AdminClient';
+
+import { saveItem } from '../../services/AsyncStorage';
+
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [alerta, setAlerta] = useState({ msg: '', error: false });
 
   async function handleSubmit() {
-    console.log({ email, password });
+
+    if ([email, password].includes('')) {
+      setAlerta({
+        msg: 'Todos los campos son obligatorios',
+        error: true,
+      });
+      return;
+    }
+
+    const body = {
+      email,
+      password,
+    }
+
+    try {
+      setLoading(true);
+      const { data } = await AdminClient.post('/auth/login', body);
+
+      saveItem('token', data.token);
+      navigation.navigate('Admin');
+
+    } catch (error) {
+      console.log(error);
+      setAlerta({
+        msg: error.message,
+        error: true,
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -35,6 +71,7 @@ const Login = ({ navigation }) => {
           keyboardType='email-address'
           value={email}
           onChangeText={setEmail}
+          disabled={loading}
         />
         <TextInput
           mode="outlined"
@@ -43,6 +80,7 @@ const Login = ({ navigation }) => {
           secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
+          disabled={loading}
         />
 
         <Button
@@ -56,10 +94,22 @@ const Login = ({ navigation }) => {
           mode='contained'
           style={{ marginVertical: 15 }}
           onPress={handleSubmit}
+          loading={loading}
+          disabled={loading}
         >
           Iniciar Sesión
         </Button>
       </View>
+
+      <CustomAlert
+        alerta={alerta.msg ? true : false}
+        title={alerta.error ? 'Error' : ''}
+        content={alerta.msg}
+        onPress={() => {
+          setAlerta(false);
+        }}
+      />
+
     </View>
   );
 }
