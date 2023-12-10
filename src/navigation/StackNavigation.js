@@ -9,7 +9,9 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+    // initialRouteName='Admin'
+    >
       <Stack.Screen
         name='Login'
         component={Login}

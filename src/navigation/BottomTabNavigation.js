@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 // Screens
 import Home from '../screens/admin/Home';
+import CrearInmueble from '../screens/admin/CrearInmueble';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +42,7 @@ const BottomTabNavigation = () => {
       {isAdmin ? (
         <Tab.Screen
           name='AdminS'
-          component={Home}
+          component={CrearInmueble}
           options={{
             headerTitle: 'Crear Inmueble',
           }}
